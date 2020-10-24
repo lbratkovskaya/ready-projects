@@ -5,6 +5,7 @@
 }
 
 body {
+  height: 100vh;
   font-family: 'Quicksand', sans-serif;
   display: flex;
   flex-direction: column;
@@ -19,6 +20,9 @@ body {
 }
 
 .next-image {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
   width: 2rem;
   height: 2rem;
   border: 0;
@@ -30,22 +34,42 @@ body {
   filter: grayscale(1);
 }
 
-.next-image:hover {
+.next-quote {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  align-self: flex-end;
+  margin: 1rem;
+  filter: grayscale(1);
+  color: white;
+  background-color: #1f5985;
+}
+
+.next-image:hover,
+.next-quote:hover {
   filter: grayscale(.8);
   cursor: pointer;
 }
 
 .next-image:active,
-.next-image:focus {
+.next-image:focus,
+.next-quote:active,
+.next-quote:focus {
   outline: 0;
 }
 
-.next-image:active {
+.next-image:active,
+.next-quote:active {
   transform: scale(1.02)
 }
 
 .date {
   font-size: 2rem;
+  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 .time {
@@ -54,20 +78,24 @@ body {
   grid-template-columns: 30% 5% 30% 5% 30%;
   min-width: 540px;
   justify-content: flex-start;
+  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 h1 {
   margin-bottom: 3rem;
+  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.8;
+  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
-.name {
+.name,
+.focus {
   display: inline-block;
-  min-width: 10px;
+  min-width: 50px;
 }
 
 .city-and-weather {
@@ -83,16 +111,22 @@ h2 {
 }
 
 .quote {
+  position: relative;
   font-size: 1.2rem;
   margin: 0;
   padding: 1em;
   border-radius: 1em;
-  max-width: 75vw;
+  width: 75vw;
+  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 .quote figcaption,
 .quote blockquote {
   margin: 1em;
+}
+
+.quote blockquote {
+  min-height: 9rem;
 }
 
 .quote figcaption {
@@ -124,7 +158,7 @@ h2 {
     display: block;
   }
   .quote {
-    max-width: 85vw;
+    width: 85vw;
     font-size: 1em;
     padding: 0;
   }
@@ -137,3 +171,10 @@ h2 {
     font-size: 1rem;
   }
 }
+
+
+/* @media (max-height: 640px) {
+  body {
+    height: 100%
+  }
+} */

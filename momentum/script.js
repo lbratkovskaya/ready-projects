@@ -3,15 +3,17 @@ const dateTag = document.querySelector('.date'),
   time = document.querySelector('.time'),
   greeting = document.querySelector('.greeting'),
   name = document.querySelector('.name'),
+  focus = document.querySelector('.focus'),
   cityTag = document.querySelector('.city'),
   weatherIcon = document.querySelector('.weather-icon'),
   weatherTemp = document.querySelector('.weather-temperature'),
   weatherState = document.querySelector('.weather-state'),
   blockquote = document.querySelector('blockquote'),
   figcaption = document.querySelector('figcaption'),
-  nextImgBtn = document.querySelector('.next-image');;
+  nextImgBtn = document.querySelector('.next-image'),
+  nextQuoteBtn = document.querySelector('.next-quote');
 
-// Options
+// Options And Constants
 let readyToSwitch = true;
 let ingIndex = new Date().getHours() + 1;
 const dayPeriodsCount = 4;
@@ -43,12 +45,6 @@ function showTime() {
     min = today.getMinutes(),
     sec = today.getSeconds();
 
-  // Set AM or PM
-  const amPm = hour >= 12 ? 'PM' : 'AM';
-
-  // // 12hr Format
-  // hour = hour % 12 || 12;
-
   formatAndFillDate(month, date, day);
 
   // Output Time
@@ -70,68 +66,68 @@ function formatAndFillDate(month, date, day) {
     dayName = '';
   switch (month) {
     case 0:
-      monthName = 'января';
+      monthName = 'january';
       break;
     case 1:
-      monthName = 'февраля';
+      monthName = 'february';
       break;
     case 2:
-      monthName = 'марта';
+      monthName = 'march';
       break;
     case 3:
-      monthName = 'апреля';
+      monthName = 'april';
       break;
     case 4:
-      monthName = 'мая';
+      monthName = 'may';
       break;
     case 5:
-      monthName = 'июня';
+      monthName = 'june';
       break;
     case 6:
-      monthName = 'июля';
+      monthName = 'july';
       break;
     case 7:
-      monthName = 'августа';
+      monthName = 'august';
       break;
     case 8:
-      monthName = 'сентября';
+      monthName = 'september';
       break;
     case 9:
-      monthName = 'октября';
+      monthName = 'october';
       break;
     case 10:
-      monthName = 'ноября';
+      monthName = 'november';
       break;
     case 11:
-      monthName = 'декабря';
+      monthName = 'december';
       break;
   }
 
   switch (day) {
     case 0:
-      dayName = 'воскресенье';
+      dayName = 'sunday';
       break;
     case 1:
-      dayName = 'понедельник';
+      dayName = 'monday';
       break;
     case 2:
-      dayName = 'вторник';
+      dayName = 'tuesday';
       break;
     case 3:
-      dayName = 'среда';
+      dayName = 'wednesday';
       break;
     case 4:
-      dayName = 'четверг';
+      dayName = 'thursday';
       break;
     case 5:
-      dayName = 'пятница';
+      dayName = 'friday';
       break;
     case 6:
-      dayName = 'суббота';
+      dayName = 'saturday';
       break;
   }
 
-  dateTag.innerHTML = `<span>${date} ${monthName}, </span><span>${dayName}</span>`;
+  dateTag.innerHTML = `<span>${date} of ${monthName}, </span><span>${dayName}</span>`;
 }
 
 // Add Zeros
@@ -147,6 +143,7 @@ function setBgGreet() {
   switchBackgroundImage(hour);
 }
 
+// Change Background Image
 function switchBackgroundImage(hour) {
   let greet = getGreetingByHour(hour);
 
@@ -155,8 +152,6 @@ function switchBackgroundImage(hour) {
 
   greeting.textContent = `Good ${greet.greetingStr}, `;
 
-  // document.body.style.backgroundImage = `url(${urlString})`;
-
   const img = document.createElement('img');
   img.src = urlString;
   img.onload = () => {
@@ -164,6 +159,7 @@ function switchBackgroundImage(hour) {
   };
 }
 
+// Calculate appropriate greeting
 function getGreetingByHour(hour) {
   let greetingStr = '',
     folderName = '';
@@ -175,9 +171,10 @@ function getGreetingByHour(hour) {
   } else if (hour < 12) {
     // Morning
     greetingStr = 'Morning';
-
+    document.body.style.color = '';
   } else if (hour < 18) {
     // Afternoon
+    document.body.style.color = '';
     greetingStr = 'Afternoon';
     folderName = 'day';
   } else {
@@ -189,6 +186,7 @@ function getGreetingByHour(hour) {
   return { 'greetingStr': greetingStr, 'folderName': folderName };
 }
 
+// Set Quote
 function setQuote() {
   const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
   fetch(url)
@@ -199,6 +197,7 @@ function setQuote() {
     });
 }
 
+// Set City Value
 function setCityAndWeather(ev) {
   if (ev.type === 'keypress') {
     if (ev.which == 13 || ev.keyCode == 13) {
@@ -222,7 +221,7 @@ function setCityAndWeather(ev) {
   }
 
 }
-
+// Get Weather for Current City
 function getCityAndWeather() {
   if (localStorage.getItem('userCity')) {
     cityTag.textContent = localStorage.getItem('userCity');
@@ -232,6 +231,7 @@ function getCityAndWeather() {
   }
 }
 
+// Update Weather for Current City
 function updateWeather(userCity) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&lang=en&appid=${apiKey}&units=metric`;
   fetch(url)
@@ -282,14 +282,11 @@ function setName(e) {
   }
 }
 
+// Update Background Image By Button Click
 function setImage() {
-
   const index = ingIndex % imageNamesArray.length;
-
   let greet = getGreetingByHour(index);
-
   let folderName = greet.folderName || greet.greetingStr.toLowerCase();
-
   const imageSrc = `assets/images/${folderName}/${addZero(imageNamesArray[index])}.jpg`;
 
   loadBgImage(imageSrc);
@@ -298,6 +295,7 @@ function setImage() {
   setTimeout(function() { nextImgBtn.disabled = false }, 1000);
 }
 
+// Load Image From File
 function loadBgImage(imgSrc) {
   const src = imgSrc;
   const img = document.createElement('img');
@@ -321,26 +319,55 @@ function setFocus(e) {
   if (e.type === 'keypress') {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
-      localStorage.setItem('focus', e.target.innerText);
-      focus.blur();
+      if (e.target.innerText) {
+        localStorage.setItem('focus', e.target.innerText);
+      } else {
+        e.target.textContent = localStorage.getItem('focus') || '[Enter Focus]';
+      }
+      name.blur();
+      e.preventDefault();
     }
   } else {
-    localStorage.setItem('focus', e.target.innerText);
+    if (e.target.innerText) {
+      localStorage.setItem('focus', e.target.innerText);
+    } else {
+      e.target.textContent = localStorage.getItem('focus') || '[Enter Focus]';
+    }
   }
 }
 
+// Resize Body For Device
+function resize() {
+  if (document.body.scrollHeight >= window.innerHeight) {
+    document.body.style.height = '100%';
+  } else {
+    document.body.style.height = '';
+  }
+}
+
+// Add Listeners
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
 name.addEventListener('focus', () => (name.innerText = ''));
+
+focus.addEventListener('keypress', setFocus);
+focus.addEventListener('blur', setFocus);
+focus.addEventListener('focus', () => (focus.innerText = ''));
+
 cityTag.addEventListener('keypress', setCityAndWeather);
 cityTag.addEventListener('blur', setCityAndWeather);
 cityTag.addEventListener('focus', () => (cityTag.innerText = ''));
 
 nextImgBtn.addEventListener('click', setImage);
+nextQuoteBtn.addEventListener('click', setQuote);
+
+window.addEventListener('resize', resize);
 
 // Run
 showTime();
 setBgGreet();
 getName();
+getFocus()
 getCityAndWeather();
 setQuote();
+resize();
