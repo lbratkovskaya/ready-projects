@@ -11,13 +11,49 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 100vh;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   color: #000000;
+  transition: background-image 1s ease-in-out;
+}
+
+.next-image {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  align-self: flex-start;
+  margin: 1rem;
+  background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+}
+
+.next-image:hover {
+  filter: grayscale(.8);
+  cursor: pointer;
+}
+
+.next-image:active,
+.next-image:focus {
+  outline: 0;
+}
+
+.next-image:active {
+  transform: scale(1.02)
+}
+
+.date {
+  font-size: 2rem;
 }
 
 .time {
   font-size: 8rem;
+  display: grid;
+  grid-template-columns: 30% 5% 30% 5% 30%;
+  min-width: 540px;
+  justify-content: flex-start;
 }
 
 h1 {
@@ -29,8 +65,75 @@ h2 {
   opacity: 0.8;
 }
 
+.name {
+  display: inline-block;
+  min-width: 10px;
+}
+
+.city-and-weather {
+  min-width: 100px;
+  align-self: flex-end;
+  margin-bottom: 5rem;
+  padding: 1rem 50px 40px;
+  font-size: 24px;
+}
+
+.weather-icon {
+  display: block;
+}
+
+.quote {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 1em;
+  border-radius: 1em;
+  max-width: 75vw;
+}
+
+.quote figcaption,
+.quote blockquote {
+  margin: 1em;
+}
+
+.quote figcaption {
+  text-align: right;
+}
+
 @media (max-width: 700px) {
   .time {
+    min-width: 420px;
     font-size: 6rem;
+    display: grid;
+    grid-template-columns: 30% 5% 30% 5% 30%;
+  }
+  .city-and-weather {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .time {
+    font-size: 3rem;
+    min-width: 210px;
+  }
+  span.name,
+  .date>span:last-child,
+  .weather-state>span {
+    display: block;
+  }
+  .quote {
+    max-width: 85vw;
+    font-size: 1em;
+    padding: 0;
+  }
+  h1 {
+    margin-bottom: 2rem;
+  }
+  .city-and-weather {
+    margin-bottom: 0;
+    padding-bottom: 1.5rem;
+    font-size: 1rem;
   }
 }
