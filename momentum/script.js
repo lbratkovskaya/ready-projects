@@ -11,7 +11,8 @@ const dateTag = document.querySelector('.date'),
   blockquote = document.querySelector('blockquote'),
   figcaption = document.querySelector('figcaption'),
   nextImgBtn = document.querySelector('.next-image'),
-  nextQuoteBtn = document.querySelector('.next-quote');
+  nextQuoteBtn = document.querySelector('.next-quote'),
+  overlay = document.querySelector('.overlay');
 
 // Options And Constants
 let readyToSwitch = true;
@@ -168,18 +169,22 @@ function getGreetingByHour(hour) {
     // Night
     greetingStr = 'Night';
     document.body.style.color = 'white';
+    overlay.classList.add('dark');
   } else if (hour < 12) {
     // Morning
     greetingStr = 'Morning';
     document.body.style.color = '';
+    overlay.classList.remove('dark');
   } else if (hour < 18) {
     // Afternoon
     document.body.style.color = '';
+    overlay.classList.remove('dark');
     greetingStr = 'Afternoon';
     folderName = 'day';
   } else {
     // Evening
     document.body.style.color = 'white';
+    overlay.classList.add('dark');
     greetingStr = 'Evening';
   }
 

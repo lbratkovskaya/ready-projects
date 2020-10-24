@@ -5,6 +5,7 @@
 }
 
 body {
+  position: relative;
   height: 100vh;
   font-family: 'Quicksand', sans-serif;
   display: flex;
@@ -69,7 +70,6 @@ body {
 
 .date {
   font-size: 2rem;
-  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 .time {
@@ -78,18 +78,15 @@ body {
   grid-template-columns: 30% 5% 30% 5% 30%;
   min-width: 540px;
   justify-content: flex-start;
-  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 h1 {
   margin-bottom: 3rem;
-  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.8;
-  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 .name,
@@ -117,7 +114,6 @@ h2 {
   padding: 1em;
   border-radius: 1em;
   width: 75vw;
-  background-image: radial-gradient(rgba(123, 123, 123, .4), rgba(123, 123, 123, 0));
 }
 
 .quote figcaption,
@@ -131,6 +127,20 @@ h2 {
 
 .quote figcaption {
   text-align: right;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(rgba(123, 123, 123, .5) 60%, rgba(123, 123, 123, 0));
+  z-index: -1;
+}
+
+.overlay.dark {
+  background-image: radial-gradient(rgba(23, 23, 23, .5) 60%, rgba(23, 23, 23, 0));
 }
 
 @media (max-width: 700px) {
@@ -171,10 +181,3 @@ h2 {
     font-size: 1rem;
   }
 }
-
-
-/* @media (max-height: 640px) {
-  body {
-    height: 100%
-  }
-} */
